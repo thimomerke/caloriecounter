@@ -2,9 +2,7 @@ import { PrismaClient } from "@prisma/client";
 
 export const prisma =
   global.prisma ||
-  new PrismaClient({
-    log: ['query'],
-  })
+  new PrismaClient()
 
 if (process.env.NODE_ENV !== 'production') global.prisma = prisma
 
@@ -18,16 +16,16 @@ export default async function handle(req, res) {
     case 'POST':
       try {
         const result = await prisma.user_thimo.create({
-            data: {
-                item_name: data.item_name,
-                amount: parseInt(data.amount),
-                calories: parseInt(data.calories),
-                carbs: parseInt(data.carbs),
-                fat: parseInt(data.fat),
-                proteins: parseInt(data.proteins),
-                Date: data.date,
-                item_id: 1,
-            },
+          data: {
+            item_name: data.item_name,
+            amount: parseInt(data.amount),
+            calories: parseInt(data.calories),
+            carbs: parseInt(data.carbs),
+            fat: parseInt(data.fat),
+            proteins: parseInt(data.proteins),
+            Date: data.date,
+            item_id: 1, //this must obviously be changed
+          },
         });
         res.json(result);
         res.status(200)
@@ -41,4 +39,12 @@ export default async function handle(req, res) {
       res.status(405).end(`Method ${method} Not Allowed`)
       break
   }
+}
+
+function checkItemExists(item_name) {
+  return prisma.food_item_list.findOne({
+    where: {
+      item_name,
+    },
+  });
 }

@@ -10,22 +10,22 @@ datasource db {
 }
 
 model food_item_list {
-    item_id          Int       @id @default(autoincrement())
-    item_name        String
+    item_id   Int    @id @default(autoincrement())
+    item_name String
     calories  Int
-    proteins       Int
-    carbs       Int
-    fat    Int
+    proteins  Int
+    carbs     Int
+    fat       Int
 }
 
 model user_thimo {
-    id Int        @id @default(autoincrement())
-    Date DateTime
-    item_id          Int
-    item_name        String
-    amount Int
+    id        Int      @id @default(autoincrement())
+    Date      DateTime
+    item_id   Int
+    item_name String
+    amount    Int
     calories  Int
-    proteins       Int
-    carbs       Int
-    fat    Int
+    proteins  Int
+    carbs     Int
+    fat       Int
 }

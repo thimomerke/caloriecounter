@@ -2,9 +2,7 @@ import { PrismaClient } from "@prisma/client";
 
 export const prisma =
   global.prisma ||
-  new PrismaClient({
-    log: ['query'],
-  })
+  new PrismaClient()
 
 if (process.env.NODE_ENV !== 'production') global.prisma = prisma
 
@@ -29,7 +27,7 @@ export default async function handle(req, res) {
           where: {
             "Date": {
               gte: date,
-              lte: date_end 
+              lte: date_end
             }
           },
           _sum: {
