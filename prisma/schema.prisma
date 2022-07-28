@@ -1,31 +1,28 @@
 generator client {
-    provider        = "prisma-client-js"
-    previewFeatures = ["referentialIntegrity"]
+  provider        = "prisma-client-js"
+  previewFeatures = ["referentialIntegrity"]
 }
 
 datasource db {
-    provider             = "mysql"
-    url                  = env("DATABASE_URL")
-    referentialIntegrity = "prisma"
+  provider             = "mysql"
+  url                  = env("DATABASE_URL")
+  referentialIntegrity = "prisma"
 }
 
 model food_item_list {
-    item_id   Int    @id @default(autoincrement())
-    item_name String
-    calories  Int
-    proteins  Int
-    carbs     Int
-    fat       Int
+  item_id   Int          @id @default(autoincrement())
+  item_name String
+  calories  Int
+  proteins  Int
+  carbs     Int
+  fat       Int
+  items     user_thimo[]
 }
 
 model user_thimo {
-    id        Int      @id @default(autoincrement())
-    Date      DateTime
-    item_id   Int
-    item_name String
-    amount    Int
-    calories  Int
-    proteins  Int
-    carbs     Int
-    fat       Int
+  id      Int            @id @default(autoincrement())
+  Date    DateTime
+  item_id Int
+  amount  Int
+  food    food_item_list @relation(fields: [item_id], references: [item_id])
 }

@@ -8,23 +8,21 @@ if (process.env.NODE_ENV !== 'production') global.prisma = prisma
 
 export default async function handle(req, res) {
   const { method } = req
-  console.log(req.body)
   const data = req.body
-  console.log(data)
 
   switch (method) {
     case 'POST':
       try {
-        const result = await prisma.user_thimo.create({
+        /*if (checkItemExists(data.item_name)) {
+          res.status(400).json({ error: 'Item already exists' })
+        }*/
+        const result = await prisma.food_item_list.create({
           data: {
             item_name: data.item_name,
-            amount: parseInt(data.amount),
             calories: parseInt(data.calories),
             carbs: parseInt(data.carbs),
             fat: parseInt(data.fat),
             proteins: parseInt(data.proteins),
-            Date: data.date,
-            item_id: 1, //this must obviously be changed
           },
         });
         res.json(result);
@@ -41,10 +39,9 @@ export default async function handle(req, res) {
   }
 }
 
-function checkItemExists(item_name) {
-  return prisma.food_item_list.findOne({
-    where: {
-      item_name,
-    },
-  });
-}
+/*async function checkItemExists(item_name) {
+  const exists = await prisma.food_item_list.$exists.item_name({
+    item_name: item_name,
+  })
+  return exists
+}*/
