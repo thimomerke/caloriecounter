@@ -1,54 +1,133 @@
 .container {
   width: 100%;
   height: 100%;
-  display: flex;
-  flex-direction: column;
-  background: #e3ebf2;
+  background: #ffb013;
+  color: #ffff;
+  font-family: "Open Sans", sans-serif !important;
+  position:absolute;
+  top:0px;
+  right:0px;
+  bottom:0px;
+  left:0px;
+}
+
+.innerContainer{
+  width: 75vw;
+  max-width: 1500px;
+  margin: auto;
 }
 
 .date{
-  font-size: 1.5rem;
+  font-size: 2rem;
   text-align: center;
   margin-top:15px;
   margin-bottom:15px;
 }
 
 .day_item_table {
-  font-family: Arial, Helvetica, sans-serif;
+  width: 100%;
   border-collapse: collapse;
-  width: 75vw;
-  max-width: 1500px;
-  margin: auto;
   box-shadow: 8px 4px 8px 4px rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   text-align: center;
-  border-collapse: collapse;
   border-radius: 10px;
   overflow: hidden;
+
+}
+
+.day_item_table tbody tr:nth-child(odd){
+  background-color: #232e3a;
+  color: #ffff;
+
+}
+
+.day_item_table tbody{
+  background-color: #2c3844;
+  color: #ffff;
+
 }
 
 .day_item_table th {
   padding-top: 12px;
   padding-bottom: 12px;
   text-align: left;
-  background-color: white;
-  color: black;
-  padding: 1vw;
+  padding: 15px;
   font-weight: 100;
 }
 
 .topRow th {
-  background-color: #bdbfc2;
+  background-color: #1e2a32;
   color: white;
   font-weight: 600;
 }
 
 .totalRow th {
-  background-color: #bdbfc2;
+  background-color: #1e2a32;
   color: white;
   font-weight: 600;
 }
 
-@media (max-width: 600px) {
+.addItem {
+  background-color: #1e2a32;
+  color: white;
+  box-shadow: 8px 4px 8px 4px rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  border-collapse: collapse;
+  border-radius: 10px;
+  overflow: hidden;
+  margin-top: 10px;
+  text-align: center;
+  width: 100%;
+  padding: 10px;
+}
+
+.addItem select {
+  width: 20%;
+  padding: 10px;
+  margin-right: 25px;
+  border: none;
+  border-radius: 5px;
+  background-color: #2c3844;
+  color: #ffff;
+}
+
+.addItem input[type=text] {
+  width: 10%;
+  padding: 5px 5px;
+  margin-left: 10px;
+  margin-right: 25px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-sizing: border-box;
+}
+
+.addItem button {
+  width: 10%;
+  background-color: #ffb013;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.addItem table {
+  margin: auto;
+}
+
+.addItem th {
+  padding: 5px;
+}
+
+.addItem table input[type=text] {
+  width: 50%;
+}
+
+.addItem table button {
+  width: 75%;
+  margin: 0;
+}
+
+@media (max-width: 1000px) {
   .grid {
     width: 100%;
     flex-direction: column;

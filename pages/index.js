@@ -10,73 +10,85 @@ function Home({ data }) {
   return (
     <div className={styles.container} id="container">
       <div className={styles.date}>{weekday[d.getDay()]}, {d.getDate() + ". " + month[d.getMonth()]}</div>
-      <table className={styles.day_item_table}>
-        <tbody>
-          <tr className={styles.topRow}>
-            <th>Uhrzeit</th>
-            <th>Name</th>
-            <th>Menge</th>
-            <th>Kalorien</th>
-            <th>Proteine</th>
-            <th>Fett</th>
-            <th>Kohlenhydrate</th>
-          </tr>
-          {data[0].map((item) => (
-            <tr>
-              <th>{item.Date.substring(15, 21)}</th>
-              <th>{item.food.item_name}</th>
-              <th>{item.amount}</th>
-              <th>{item.food.calories * item.amount}</th>
-              <th>{item.food.proteins * item.amount}</th>
-              <th>{item.food.carbs * item.amount}</th>
-              <th>{item.food.fat * item.amount}</th>
+      <div className={styles.innerContainer}>
+        <table className={styles.day_item_table}>
+          <tbody>
+            <tr className={styles.topRow}>
+              <th>Uhrzeit</th>
+              <th>Name</th>
+              <th>Menge</th>
+              <th>Kalorien</th>
+              <th>Proteine</th>
+              <th>Fett</th>
+              <th>Kohlenhydrate</th>
             </tr>
-          ))}
-          <tr className={styles.totalRow}>
-            <th>Total</th>
-            <th></th>
-            <th></th>
-            <th>{data[1][0]}</th>
-            <th>{data[1][1]}</th>
-            <th>{data[1][2]}</th>
-            <th>{data[1][3]}</th>
-          </tr>
-        </tbody>
-      </table>
+            {data[0].map((item) => (
+              <tr>
+                <th>{item.Date.substring(15, 21)}</th>
+                <th>{item.food.item_name}</th>
+                <th>{item.amount}</th>
+                <th>{item.food.calories * item.amount}</th>
+                <th>{item.food.proteins * item.amount}</th>
+                <th>{item.food.carbs * item.amount}</th>
+                <th>{item.food.fat * item.amount}</th>
+              </tr>
+            ))}
+            <tr className={styles.totalRow}>
+              <th>Total</th>
+              <th></th>
+              <th></th>
+              <th>{data[1][0]}</th>
+              <th>{data[1][1]}</th>
+              <th>{data[1][2]}</th>
+              <th>{data[1][3]}</th>
+            </tr>
+          </tbody>
+        </table>
 
-      <h3>
-        Total Calories: {data[1][0]}
-        Total Proteins: {data[1][1]}
-        Total Carbs: {data[1][2]}
-        Total Fat: {data[1][3]}
-      </h3>
+        <div className={styles.addItem}>
+          Add Item to List
+          <form onSubmit={async e => { addItemToDay() }} method="post">
+            <select id="items" name="items">
+              {data[2].map((item) => (<option value={item.item_id}>{item.item_name}</option>))}
+            </select>
+            <label>Amount</label>
+            <input type="text" name="amount" id="amount" />
+            <button type="submit">Submit</button>
+          </form>
+        </div>
 
-
-      Create New Food Item:
-      <form onSubmit={async e => { createNewItem() }} method="post">
-        <label for="item_name">Name:</label>
-        <input type="text" name="item_name" id="item_name" />
-        <label for="name">Calories:</label>
-        <input type="text" name="calories" id="calories" />
-        <label for="name">Carbs:</label>
-        <input type="text" name="carbs" id="carbs" />
-        <label for="name">Fat:</label>
-        <input type="text" name="fat" id="fat" />
-        <label for="name">Proteins:</label>
-        <input type="text" name="proteins" id="proteins" />
-        <button type="submit">Submit</button>
-      </form>
-
-      Add Item to List:
-      <form onSubmit={async e => { addItemToDay() }} method="post">
-        <select id="items" name="items">
-          {data[2].map((item) => (<option value={item.item_id}>{item.item_name}</option>))}
-        </select>
-        <label for="name">Amount:</label>
-        <input type="text" name="amount" id="amount" />
-        <button type="submit">Submit</button>
-      </form>
-
+        <div className={styles.addItem}>
+          Create New Food Item
+          <form onSubmit={async e => { createNewItem() }} method="post">
+            <table>
+              <tbody>
+                <tr className={styles.topRow}>
+                  <th><label for="item_name">Name</label>
+                    <input type="text" name="item_name" className={styles.item_name} />
+                  </th>
+                  <th><label for="name">Calories</label>
+                    <input type="text" name="calories" id="calories" />
+                  </th>
+                  <th><label for="name">Carbs</label>
+                    <input type="text" name="carbs" id="carbs" />
+                  </th>
+                </tr>
+                <tr className={styles.topRow}>
+                  <th>
+                    <label for="name">Fat</label>
+                    <input type="text" name="fat" id="fat" />
+                  </th>
+                  <th><label for="name">Proteins</label>
+                    <input type="text" name="proteins" id="proteins" />
+                  </th>
+                  <th><button type="submit">Submit</button>
+                  </th>
+                </tr>
+              </tbody>
+            </table>
+          </form>
+        </div>
+      </div>
     </div>
   )
 }
