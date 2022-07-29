@@ -20,7 +20,7 @@ function Home({ data }) {
               <th>Kohlenhydrate</th>
             </tr>
             {data[0].map((item) => (
-              <tr>
+              <tr key="1">
                 <th>{item.Date.substring(15, 21)}</th>
                 <th>{item.food.item_name}</th>
                 <th>{item.amount}</th>
@@ -30,7 +30,7 @@ function Home({ data }) {
                 <th>{item.food.fat * item.amount}</th>
               </tr>
             ))}
-            <tr className={styles.totalRow}>
+            <tr className={styles.totalRow} key="2">
               <th>Total</th>
               <th></th>
               <th></th>
@@ -46,7 +46,7 @@ function Home({ data }) {
           Add Item to List
           <form onSubmit={async e => { addItemToDay() }} method="post">
             <select id="items" name="items">
-              {data[2].map((item) => (<option value={item.item_id}>{item.item_name}</option>))}
+              {data[2].map((item) => (<option value={item.item_id} key={item.item_id}>{item.item_name}</option>))}
             </select>
             <label>Amount</label>
             <input type="text" name="amount" id="amount" />
@@ -58,7 +58,7 @@ function Home({ data }) {
           Create New Food Item
           <form onSubmit={e => { createNewItem() }} method="post">
             <label>Name</label>
-            <input type="text" name="item_name" id="item_name"/>
+            <input type="text" name="item_name" id="item_name" />
             <label>Calories</label>
             <input type="text" name="calories" id="calories" />
             <label>Carbs</label>
