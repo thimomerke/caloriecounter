@@ -1,5 +1,7 @@
 import styles from '../styles/Home.module.css'
 
+const app_url = process.env.NEXT_PUBLIC_APP_URL;
+
 function Home({ data }) {
   const weekday = ['Sonntag', 'Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag']
   const month = ['Januar', 'Februar', 'März', 'April', 'Mai', 'Juni', 'Juli', 'August', 'September', 'Oktober', 'November', 'Dezember']
@@ -76,18 +78,14 @@ function Home({ data }) {
 }
 
 export async function getServerSideProps() {
-
   const today = new Date()
   today.setUTCHours(0, 0, 0, 0)
   const today_end = new Date()
   today_end.setUTCHours(23, 59, 59, 999)
-  const url = process.env.APP_URL + '/api/load_data?date=' + today.toISOString() + '&date_end=' + today_end.toISOString()
-  // Fetch data from external API
+  const url = app_url + '/api/load_data?date=' + today.toISOString() + '&date_end=' + today_end.toISOString()
+  console.log(url)
   const res = await fetch(url)
   const data = await res.json()
-
-
-  // Pass data to the page via props
   return { props: { data } }
 }
 
@@ -97,7 +95,8 @@ export async function createNewItem() {
   const carbs = document.getElementById("carbs").value;
   const fat = document.getElementById("fat").value;
   const proteins = document.getElementById("proteins").value;
-  const res = await fetch(process.env.APP_URL + `/api/create_item`, {
+  const url = app_url + '/api/create_item'
+  const res = await fetch(url, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
@@ -114,11 +113,12 @@ export async function createNewItem() {
 }
 
 export async function addItemToDay() {
-  console.log("test")
+  console.log(process.env.APP_URL)
   const item_id = document.getElementById("items").value;
   const amount = document.getElementById("amount").value;
   const date = new Date();
-  const res = await fetch(process.env.APP_URL + `/api/add_item_to_day`, {
+  const url = app_url + '/api/add_item_to_day'
+  const res = await fetch(url, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
