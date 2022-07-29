@@ -1,8 +1,5 @@
-import Head from 'next/head'
-import Image from 'next/image'
 import styles from '../styles/Home.module.css'
 
-// posts will be populated at build time by getStaticProps()
 function Home({ data }) {
   const weekday = ['Sonntag', 'Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag']
   const month = ['Januar', 'Februar', 'März', 'April', 'Mai', 'Juni', 'Juli', 'August', 'September', 'Oktober', 'November', 'Dezember']
@@ -59,33 +56,18 @@ function Home({ data }) {
 
         <div className={styles.addItem}>
           Create New Food Item
-          <form onSubmit={async e => { createNewItem() }} method="post">
-            <table>
-              <tbody>
-                <tr className={styles.topRow}>
-                  <th><label for="item_name">Name</label>
-                    <input type="text" name="item_name" className={styles.item_name} />
-                  </th>
-                  <th><label for="name">Calories</label>
-                    <input type="text" name="calories" id="calories" />
-                  </th>
-                  <th><label for="name">Carbs</label>
-                    <input type="text" name="carbs" id="carbs" />
-                  </th>
-                </tr>
-                <tr className={styles.topRow}>
-                  <th>
-                    <label for="name">Fat</label>
-                    <input type="text" name="fat" id="fat" />
-                  </th>
-                  <th><label for="name">Proteins</label>
-                    <input type="text" name="proteins" id="proteins" />
-                  </th>
-                  <th><button type="submit">Submit</button>
-                  </th>
-                </tr>
-              </tbody>
-            </table>
+          <form onSubmit={e => { createNewItem() }} method="post">
+            <label>Name</label>
+            <input type="text" name="item_name" id="item_name"/>
+            <label>Calories</label>
+            <input type="text" name="calories" id="calories" />
+            <label>Carbs</label>
+            <input type="text" name="carbs" id="carbs" />
+            <label>Fat</label>
+            <input type="text" name="fat" id="fat" />
+            <label>Proteins</label>
+            <input type="text" name="proteins" id="proteins" />
+            <button type="submit">Submit</button>
           </form>
         </div>
       </div>
@@ -94,6 +76,7 @@ function Home({ data }) {
 }
 
 export async function getServerSideProps() {
+
   const today = new Date()
   today.setUTCHours(0, 0, 0, 0)
   const today_end = new Date()
@@ -102,6 +85,7 @@ export async function getServerSideProps() {
   // Fetch data from external API
   const res = await fetch(url)
   const data = await res.json()
+
 
   // Pass data to the page via props
   return { props: { data } }
@@ -113,7 +97,6 @@ export async function createNewItem() {
   const carbs = document.getElementById("carbs").value;
   const fat = document.getElementById("fat").value;
   const proteins = document.getElementById("proteins").value;
-
   const res = await fetch(`http://localhost:3000/api/create_item`, {
     method: 'POST',
     headers: {
@@ -131,10 +114,10 @@ export async function createNewItem() {
 }
 
 export async function addItemToDay() {
+  console.log("test")
   const item_id = document.getElementById("items").value;
   const amount = document.getElementById("amount").value;
   const date = new Date();
-
   const res = await fetch(`http://localhost:3000/api/add_item_to_day`, {
     method: 'POST',
     headers: {

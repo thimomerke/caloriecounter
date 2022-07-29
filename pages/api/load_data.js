@@ -13,7 +13,7 @@ export default async function handle(req, res) {
     case 'GET':
       try {
         const day = await getDayItems(date, date_end)
-        const item_list = await prisma.food_item_list.findMany()
+        const item_list = await getItemList()
         res.status(200).json([day[0], day[1], item_list])
       } catch (e) {
         console.error('Request error', e)
@@ -51,4 +51,11 @@ async function getDayItems(date, date_end) {
     day_totals[3] += item.food.fat * item.amount
   });
   return [day_items, day_totals]
+}
+
+async function getItemList() {
+  const item_list = await prisma.food_item_list.findMany({
+    orderBy: { item_name: 'asc' },
+  })
+  return item_list
 }
