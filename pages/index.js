@@ -81,7 +81,7 @@ export async function getServerSideProps() {
   today.setUTCHours(0, 0, 0, 0)
   const today_end = new Date()
   today_end.setUTCHours(23, 59, 59, 999)
-  const url = 'http://localhost:3000/api/load_data?date=' + today.toISOString() + '&date_end=' + today_end.toISOString()
+  const url = process.env.APP_URL + '/api/load_data?date=' + today.toISOString() + '&date_end=' + today_end.toISOString()
   // Fetch data from external API
   const res = await fetch(url)
   const data = await res.json()
@@ -97,7 +97,7 @@ export async function createNewItem() {
   const carbs = document.getElementById("carbs").value;
   const fat = document.getElementById("fat").value;
   const proteins = document.getElementById("proteins").value;
-  const res = await fetch(`http://localhost:3000/api/create_item`, {
+  const res = await fetch(process.env.APP_URL + `/api/create_item`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
@@ -118,7 +118,7 @@ export async function addItemToDay() {
   const item_id = document.getElementById("items").value;
   const amount = document.getElementById("amount").value;
   const date = new Date();
-  const res = await fetch(`http://localhost:3000/api/add_item_to_day`, {
+  const res = await fetch(process.env.APP_URL + `/api/add_item_to_day`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
